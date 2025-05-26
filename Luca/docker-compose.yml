@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  video-service:
+    build: ./api-1
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - SERVICE_NAME=Video Service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  meme-service:
+    build: ./api-2
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - SERVICE_NAME=Meme Service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - SERVICE_NAME=API Gateway
+    depends_on:
+      video-service:
+        condition: service_healthy
+      meme-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
