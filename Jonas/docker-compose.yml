@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  app1:
+    build: ./app1
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - SERVICE_NAME=app1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  app2:
+    build: ./app2
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - SERVICE_NAME=app2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - SERVICE_NAME=API Gateway
+    depends_on:
+      app1:
+        condition: service_healthy
+      app2:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
