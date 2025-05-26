@@ -1,0 +1,22 @@
+version: '3'
+services:
+  app1:
+    build: ./app1
+    container_name: app1
+    ports:
+      - "3001:3001"
+
+  app2:
+    build: ./app2
+    container_name: app2
+    ports:
+      - "3002:3002"
+
+  gateway:
+    build: ./api-gateway
+    container_name: gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - app1
+      - app2
