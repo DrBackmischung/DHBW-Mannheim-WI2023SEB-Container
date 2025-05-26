@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+
+  multiply-service:
+    build: ./multiply-service
+    ports:
+      - "3010:3010"
+    environment:
+      - PORT=3010
+      - SERVICE_NAME=Mul Service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3010/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  random-number-service:
+    build: ./random-number-service
+    ports:
+      - "3011:3011"
+    environment:
+      - PORT=3011
+      - SERVICE_NAME=Random Number Service
