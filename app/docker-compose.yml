@@ -59,3 +59,23 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+
+  # 🔽 Hier fügst du deine neuen Services hinzu:
+
+  api-1:
+    build: ./chris_ibrahim/api-1
+    ports:
+      - "3101:3001"
+
+  api-2:
+    build: ./chris_ibrahim/api-2
+    ports:
+      - "3102:3002"
+
+  chris-gateway:
+    build: ./chris_ibrahim/gateway
+    ports:
+      - "3100:8080"
+    depends_on:
+      - api-1
+      - api-2
