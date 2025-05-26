@@ -5,8 +5,8 @@ const PORT = process.env.PORT || 3002;
 app.use(express.json());
 
 let users = [
-  { id: 1, name: 'User 1', email: 'user1@example.com' },
-  { id: 2, name: 'User 2', email: 'user2@example.com' },
+  { id: 1, name: 'User A', email: 'userA@example.com' },
+  { id: 2, name: 'User B', email: 'userB@example.com' },
 ];
 
 app.get('/health', (req, res) => res.send('OK'));

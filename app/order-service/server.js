@@ -5,8 +5,8 @@ const PORT = process.env.PORT || 3003;
 app.use(express.json());
 
 let orders = [
-  { id: 1, productId: 1, userId: 1, quantity: 2 },
-  { id: 2, productId: 2, userId: 2, quantity: 1 },
+  { id: 1, productId: 1, userId: 2, quantity: 2 },
+  { id: 2, productId: 2, userId: 1, quantity: 1 },
 ];
 
 app.get('/health', (req, res) => res.send('OK'));
