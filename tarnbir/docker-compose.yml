@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  greeting:
+    build: ./greeting-service
+    ports:
+      - "3000:3000"
+    container_name: greeting-service
+
+  counter:
+    build: ./counter-service
+    ports:
+      - "3001:3001"
+    container_name: counter-service
