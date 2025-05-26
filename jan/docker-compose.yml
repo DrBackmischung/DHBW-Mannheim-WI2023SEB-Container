@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  greeting:
+    build: ./hello_world-service
+    ports:
+      - "3000:3000"
+    container_name: hello_world-service
+
+  counter:
+    build: ./ping_pong-service
+    ports:
+      - "3001:3001"
+    container_name: ping_pong-service
